@@ -5,14 +5,18 @@
     </div>
     <div class="form-group">
       <b-button-group class="btn-group">
-        <b-button v-b-modal.modal-prevent-closing variant="success" class="edit-btn btn">edit</b-button>
-        <b-button variant="primary" class="add-btn btn" @click="addColor">add color</b-button>
+        <b-button
+          variant="secondary"
+          class="edit-btn btn"
+          @click="$bvModal.show('bv-modal-example')"
+        >edit</b-button>
+        <b-button variant="light" class="add-btn btn" @click="addColor">add color</b-button>
       </b-button-group>
       <transition name="transit">
         <div class="add-alert" v-show="add">Added color!</div>
       </transition>
 
-      <b-modal id="modal-prevent-closing" ref="modal" title="BootstrapVue">
+      <b-modal id="bv-modal-example" hide-footer ref="modal" title="Edit">
         <form ref="form" @submit.stop.prevent="handleSubmit">
           <b-card bg-variant="light">
             <b-form-group
@@ -74,17 +78,24 @@
             </b-form-group>
           </b-card>
         </form>
+        <div class="text-right">
+          <b-button class="mt-3" right @click="$bvModal.hide('bv-modal-example')">Close Me</b-button>
+        </div>
       </b-modal>
     </div>
 
     <div class="box_wrapper">
       <div class="bg_box" v-for="bgColor in bgRandomColors" v-bind:style="{background:bgColor}">
         <div class="box" v-bind:style="{background:boxColor}">
-          <span v-bind:style="{color:textColor}">{{buttonName}}</span>
+          <span v-bind:style="{color:textColor}" class="btn-name">{{buttonName}}</span>
         </div>
         <div class="colorCode">
-          <div class="bgCode" @click="copy">{{bgColor}}</div>
-          <div class="boxCode" @click="copy" v-bind:style="{background:boxColor}">{{boxColor}}</div>
+          <div class="bgCode" @click="copy">
+            <p>{{bgColor}}</p>
+          </div>
+          <div class="boxCode" @click="copy" v-bind:style="{background:boxColor}">
+            <p>{{boxColor}}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -110,7 +121,7 @@ export default {
   created: function() {
     this.showColor();
   },
-  mounted() {},
+  computed: {},
   methods: {
     showColor: function() {
       for (let i = 0; i < this.length; i++) {
@@ -162,3 +173,5 @@ export default {
   }
 };
 </script>
+<style＞
+</style>
